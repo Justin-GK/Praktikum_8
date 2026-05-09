@@ -1,0 +1,131 @@
+<!-- Justin Gabriel Kristianto - 2572011 -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI - 2572011</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            margin: 20px;
+        }
+        div {
+            margin-bottom: 10px;
+        }
+        .result{
+            display: none;
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+        }
+        .reference{
+            border: 1px solid #000;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kalkulator BMI</h1>
+    
+    <div>
+        <label>Jenis Kelamin:</label>
+        <select id="jenis_kelamin">
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Perempuan">Perempuan</option>
+        </select>
+    </div>
+    
+    <div>
+        <label>Umur (tahun):</label>
+        <input type="number" id="umur">
+    </div>
+    
+    <div>
+        <label>Tinggi Badan (cm):</label>
+        <input type="number" id="tinggi">
+    </div>
+    
+    <div>
+        <label>Berat Badan (kg):</label>
+        <input type="number" id="berat">
+    </div>
+    
+    <button onclick="hitungBMI()">Hitung BMI</button>
+    <button onclick="resetForm()">Reset</button>
+
+    <div class="result" id="hasil">
+        <h2>Hasil BMI Anda</h2>
+        <p>BMI: <span id="bmi-value"></span></p>
+        <p>Kategori: <span id="bmi-category"></span></p>
+        <p id="bmi-desc"></p>
+    </div>
+
+    <div class="reference">
+        <h2>Kategori BMI</h2>
+        <ul>
+            <li>Kekurangan Berat Badan: &lt; 18.5</li>
+            <li>Normal: 18.5 - 24.9</li>
+            <li>Kelebihan Berat Badan: 25.0 - 29.9</li>
+            <li>Obesitas: &ge; 30.0</li>
+        </ul>
+    </div>
+
+    <script>
+        function hitungBMI() {
+            let tinggiCm = document.getElementById("tinggi").value;
+            let berat = document.getElementById("berat").value;
+            let umur = document.getElementById("umur").value;
+            let category = "";
+            let desc = "";
+
+            // Validasi input
+            if (!tinggiCm || !berat || !umur || tinggiCm <= 0 || berat <= 0 || umur <= 0) {
+                alert("Input tidak boleh kosong dan harus bernilai positif!");
+                return;
+            }
+
+            let tinggiInMeter = parseFloat(tinggiCm) / 100;
+            let beratNum = parseFloat(berat);
+
+            let bmi = beratNum / (tinggiInMeter * tinggiInMeter);
+            let bmiFormatted = bmi.toFixed(1);
+
+
+            if (bmi < 18.5) {
+                category = "Kekurangan Berat Badan";
+                desc = "Berat badan kamu kurang dari ideal. Pertimbangkan pola makan bergizi untuk menaikkan berat badan secara sehat.";
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                category = "Normal";
+                desc = "Selamat! Berat badan kamu ideal. Pertahankan dengan pola makan sehat dan olahraga rutin.";
+            } else if (bmi >= 25.0 && bmi <= 29.9) {
+                category = "Kelebihan Berat Badan";
+                desc = "Berat badan kamu sedikit di atas ideal. Mulai perbaiki pola makan dan tingkatkan aktivitas fisik.";
+            } else if (bmi >= 30.0) {
+                category = "Obesitas";
+                desc = "Berat badan kamu jauh di atas ideal. Segera konsultasikan dengan dokter atau ahli gizi.";
+            }
+
+            document.getElementById("bmi-value").textContent = bmiFormatted;
+            document.getElementById("bmi-category").textContent = category;
+            document.getElementById("bmi-desc").textContent = desc;
+            document.getElementById("hasil").style.display = "block";
+        }
+
+        function resetForm() {
+            document.getElementById("jenis_kelamin").value = "";
+            document.getElementById("umur").value = "";
+            document.getElementById("tinggi").value = "";
+            document.getElementById("berat").value = "";            
+            document.getElementById("hasil").style.display = "none";
+        }
+    </script>
+</body>
+</html>
