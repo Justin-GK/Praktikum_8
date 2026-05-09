@@ -1,0 +1,158 @@
+<!-- Justin Gabriel Kristianto - 2572011 -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SettingWeb - 2572011</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            background-color: white; 
+            padding: 20px;
+        }
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgb(163, 163, 163);
+        }
+        button {
+            margin-top: 10px;
+            font-size: 16px;
+            width: 100%;
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        select {
+            border: 1px solid #ccc;
+            width: 100%;
+            padding: 8px;
+        }
+        h1 {
+            text-align: center; 
+        }
+        h2{
+            color: green;
+        }
+        div {
+            margin-bottom: 15px;
+        }
+        #resultText {
+            display: none;     
+            text-align: center; 
+            margin-top: 15px;
+        }
+        .info-section {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Ubah Warna Halaman</h1>
+        
+        <div>
+            <label>Pilih Warna Latar Belakang:</label>
+            <select id="bgColor">
+                <option value="merah">Merah</option>
+                <option value="biru">Biru</option>
+                <option value="hijau">Hijau</option>
+                <option value="kuning">Kuning</option>
+                <option value="putih" selected>Putij</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Pilih Warna Tombol:</label>
+            <select id="btnColor">
+                <option value="merah">Merah</option>
+                <option value="biru" selected>Biru</option>
+                <option value="hijau">Hijau</option>
+                <option value="kuning">Kuning</option>
+                <option value="putih">Putih</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Pilih Warna Teks:</label>
+            <select id="textColor">
+                <option value="merah">Merah</option>
+                <option value="biru">Biru</option>
+                <option value="hijau">Hijau</option>
+                <option value="kuning">Kuning</option>
+                <option value="putih">Putih</option>
+            </select>
+        </div>
+
+        <button id="mainBtn" onclick="gantiWarna()">Ganti Warna</button>
+        
+        <h3 id="resultText"></h3>
+    </div>
+
+    <div class="info-section">
+        <h2>Page Modifier</h2>
+        <p>Pada tugas ini, Anda diminta untuk membuat form yang berfungsi untuk mengubah elemen dalam halaman web.</p>
+        <p>Berikut ini fungsi setiap field:</p>
+        <ul>
+            <li><b>Latar Belakang</b> - Mengubah warna body</li>
+            <li><b>Tombol</b> - Mengubah warna tombol</li>
+            <li><b>Teks</b> - Mengubah warna teks yang muncul ketika tombol diklik, teks yang muncul harus sesuai dengan warna teks yang dipilh.</li>
+        </ul>
+        <p>Warna default halamannya adalah putih dengan tombol biru.</p>
+    </div>
+
+    <script>
+      function gantiWarna() {
+            let warnaLatarDipilih = document.getElementById("bgColor").value;
+            let warnaTombolDipilih = document.getElementById("btnColor").value;
+            let warnaTeksDipilih = document.getElementById("textColor").value;
+
+            const daftarWarna = {
+                  "merah": "red",
+                  "biru": "blue",
+                  "hijau": "green",
+                  "kuning": "yellow",
+                  "putih": "white"
+            };
+
+            let warnaLatarInggris = daftarWarna[warnaLatarDipilih];
+            let warnaTombolInggris = daftarWarna[warnaTombolDipilih];
+            let warnaTeksInggris = daftarWarna[warnaTeksDipilih];
+
+            document.body.style.backgroundColor = warnaLatarInggris;
+
+            let elemenTombol = document.getElementById("mainBtn");
+            elemenTombol.style.backgroundColor = warnaTombolInggris;
+            
+            if (warnaTombolDipilih == "putih" || warnaTombolDipilih == "kuning") {
+                  elemenTombol.style.color = "black";
+            } else {
+                  elemenTombol.style.color = "white";
+            }
+
+            let elemenHasil = document.getElementById("resultText");
+            elemenHasil.style.color = warnaTeksInggris;
+            elemenHasil.textContent = "Ini " + warnaTeksDipilih;
+            
+            elemenHasil.style.display = "block";
+      }
+      </script>
+</body>
+</html>
